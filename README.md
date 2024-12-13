@@ -1,8 +1,22 @@
 Endpoint: localhost:9900/cxf/oneway
-Sending this payload gives following exception:
+Sending this payload gives following exception (its different based on the versions):
 
 Caused by: com.ctc.wstx.exc.WstxEOFException: Unexpected EOF; was expecting a close tag for element <soap-env:Body>
 at [row,col {unknown-source}]: [25,15]
+
+OR
+
+Caused by: java.lang.IllegalStateException: Current event not START_ELEMENT or END_ELEMENT
+at com.ctc.wstx.sr.BasicStreamReader.getNamespaceCount(BasicStreamReader.java:805) ~[woodstox-core-6.2.7.jar:6.2.7]
+at org.apache.cxf.staxutils.DepthXMLStreamReader.getNamespaceCount(DepthXMLStreamReader.java:122) ~[cxf-core-3.5.2.jar:3.5.2]
+at org.apache.cxf.staxutils.DepthXMLStreamReader.getNamespaceCount(DepthXMLStreamReader.java:122) ~[cxf-core-3.5.2.jar:3.5.2]
+at org.apache.camel.component.cxf.converter.DelegatingXMLStreamReader.<init>(DelegatingXMLStreamReader.java:40) ~[camel-cxf-3.17.0.jar:3.17.0]
+at org.apache.camel.component.cxf.converter.CxfPayloadConverter.convertTo(CxfPayloadConverter.java:225) ~[camel-cxf-3.17.0.jar:3.17.0]
+at org.apache.camel.component.cxf.converter.CxfPayloadConverterLoader.lambda$registerFallbackConverters$8(CxfPayloadConverterLoader.java:68) ~[camel-cxf-3.17.0.jar:3.17.0]
+at org.apache.camel.support.SimpleTypeConverter.convertTo(SimpleTypeConverter.java:101) ~[camel-support-3.17.0.jar:3.17.0]
+... 30 common frames omitted
+
+
 
 Payload:
 <soap-env:Envelope xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/">
