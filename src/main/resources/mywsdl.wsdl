@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  targetNamespace="http://camel.apache.org/cxf/jaxws/dispatch"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+                  xmlns:tns="http://camel.apache.org/cxf/jaxws/dispatch" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <wsdl:types>
+        <xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+                    targetNamespace="http://camel.apache.org/cxf/jaxws/dispatch"
+                    xmlns:tns="http://camel.apache.org/cxf/jaxws/dispatch" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:element name="InvokeOneWay" nillable="true" type="xsd:anyType"/>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="InvokeOneWay">
+        <wsdl:part element="tns:InvokeOneWay" name="InvokeOneWayRequest"/>
+    </wsdl:message>
+    <wsdl:portType name="OneWay">
+        <wsdl:operation name="InvokeOneWay">
+            <wsdl:input message="tns:InvokeOneWay" name="InvokeOneWay"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="OneWayServiceSoap12Binding" type="tns:OneWay">
+        <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsp:Policy xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+            <wsp:PolicyReference URI="#BN__binding"/>
+        </wsp:Policy>
+        <wsdl:operation name="InvokeOneWay">
+            <soap12:operation soapAction="" style="document"/>
+            <wsdl:input name="InvokeOneWay">
+                <soap12:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="service">
+        <wsdl:port binding="tns:OneWayServiceSoap12Binding" name="port12">
+            <soap:address location="https://host:port/path"/>
+        </wsdl:port>
+    </wsdl:service>
+    <wsp:UsingPolicy xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" required="true"/>
+    <wsp:Policy xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" wsu:Id="BN__binding"
+                xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <wsaw:UsingAddressing xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"/>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+</wsdl:definitions>
