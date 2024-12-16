@@ -22,15 +22,46 @@
 <!--		not working-->
 <!--		<camel.version>3.14.5</camel.version>-->
 <!--		<camel.version>3.11.7</camel.version>-->
+
+<!--		Latest-->
+		<camel.version>3.17.0</camel.version>
+
+
 		<camel.version>3.17.0</camel.version>
 
 <!--		<camel.version>3.11.0</camel.version>-->
 <!--		<camel.version>3.10.0</camel.version>-->
 	</properties>
+
+
 	<dependencies>
+
+<!--		Force tomcat 8 dependency (is not working)-->
+<!--		<dependency>-->
+<!--			<groupId>org.apache.tomcat.embed</groupId>-->
+<!--			<artifactId>tomcat-embed-core</artifactId>-->
+<!--			<version>8.5.100</version>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>org.apache.tomcat.embed</groupId>-->
+<!--			<artifactId>tomcat-embed-el</artifactId>-->
+<!--			<version>8.5.100</version>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>org.apache.tomcat.embed</groupId>-->
+<!--			<artifactId>tomcat-embed-websocket</artifactId>-->
+<!--			<version>8.5.100</version>-->
+<!--		</dependency>-->
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+<!--			<exclusions>-->
+<!--				<exclusion>-->
+<!--					<groupId>org.springframework.boot</groupId>-->
+<!--					<artifactId>spring-boot-starter-tomcat</artifactId>-->
+<!--				</exclusion>-->
+<!--			</exclusions>-->
 		</dependency>
 		<dependency>
 			<groupId>org.apache.camel.springboot</groupId>
