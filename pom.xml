@@ -28,6 +28,7 @@
 
 
 		<camel.version>3.17.0</camel.version>
+		<cxf.version>3.6.5</cxf.version>
 
 <!--		<camel.version>3.11.0</camel.version>-->
 <!--		<camel.version>3.10.0</camel.version>-->
@@ -35,22 +36,93 @@
 
 
 	<dependencies>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-core</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-bindings-soap</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-bindings-xml</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-databinding-jaxb</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-features-logging</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-jaxrs</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-jaxws</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-simple</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-rs-client</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-security</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-ws-addr</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-ws-policy</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-wsdl</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
 
-<!--		Force tomcat 8 dependency (is not working)-->
+
+
 <!--		<dependency>-->
 <!--			<groupId>org.apache.tomcat.embed</groupId>-->
 <!--			<artifactId>tomcat-embed-core</artifactId>-->
-<!--			<version>8.5.100</version>-->
+<!--			<version>9.0.98</version>-->
 <!--		</dependency>-->
 <!--		<dependency>-->
 <!--			<groupId>org.apache.tomcat.embed</groupId>-->
 <!--			<artifactId>tomcat-embed-el</artifactId>-->
-<!--			<version>8.5.100</version>-->
+<!--			<version>9.0.98</version>-->
 <!--		</dependency>-->
 <!--		<dependency>-->
 <!--			<groupId>org.apache.tomcat.embed</groupId>-->
 <!--			<artifactId>tomcat-embed-websocket</artifactId>-->
-<!--			<version>8.5.100</version>-->
+<!--			<version>9.0.98</version>-->
 <!--		</dependency>-->
 
 		<dependency>
