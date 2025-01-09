@@ -1,48 +1,43 @@
-Endpoint: localhost:9900/cxf/oneway
+Endpoint: localhost:9900/cxf/myendpoint
 Sending this payload gives following exception (its different based on the versions):
 
-Caused by: com.ctc.wstx.exc.WstxEOFException: Unexpected EOF; was expecting a close tag for element <soap-env:Body>
-at [row,col {unknown-source}]: [25,15]
-
-OR
-
-Caused by: java.lang.IllegalStateException: Current event not START_ELEMENT or END_ELEMENT
-at com.ctc.wstx.sr.BasicStreamReader.getNamespaceCount(BasicStreamReader.java:805) ~[woodstox-core-6.2.7.jar:6.2.7]
-at org.apache.cxf.staxutils.DepthXMLStreamReader.getNamespaceCount(DepthXMLStreamReader.java:122) ~[cxf-core-3.5.2.jar:3.5.2]
-at org.apache.cxf.staxutils.DepthXMLStreamReader.getNamespaceCount(DepthXMLStreamReader.java:122) ~[cxf-core-3.5.2.jar:3.5.2]
-at org.apache.camel.component.cxf.converter.DelegatingXMLStreamReader.<init>(DelegatingXMLStreamReader.java:40) ~[camel-cxf-3.17.0.jar:3.17.0]
-at org.apache.camel.component.cxf.converter.CxfPayloadConverter.convertTo(CxfPayloadConverter.java:225) ~[camel-cxf-3.17.0.jar:3.17.0]
-at org.apache.camel.component.cxf.converter.CxfPayloadConverterLoader.lambda$registerFallbackConverters$8(CxfPayloadConverterLoader.java:68) ~[camel-cxf-3.17.0.jar:3.17.0]
-at org.apache.camel.support.SimpleTypeConverter.convertTo(SimpleTypeConverter.java:101) ~[camel-support-3.17.0.jar:3.17.0]
-... 30 common frames omitted
+ava.lang.IllegalStateException: The request object has been recycled and is no longer associated with this facade
+at org.apache.catalina.connector.RequestFacade.checkFacade(RequestFacade.java:856) ~[tomcat-embed-core-9.0.83.jar:9.0.83]
+at org.apache.catalina.connector.RequestFacade.getUserPrincipal(RequestFacade.java:610) ~[tomcat-embed-core-9.0.83.jar:9.0.83]
+at org.apache.cxf.transport.http.AbstractHTTPDestination$2.getUserPrincipal(AbstractHTTPDestination.java:397) ~[cxf-rt-transports-http-3.6.5.jar:3.6.5]
+at org.apache.camel.component.cxf.DefaultCxfBinding.populateExchangeFromCxfRequest(DefaultCxfBinding.java:317) ~[camel-cxf-3.17.0.jar:3.17.0]
+at org.apache.camel.component.cxf.CxfConsumer$CxfConsumerInvoker.prepareCamelExchange(CxfConsumer.java:297) ~[camel-cxf-3.17.0.jar:3.17.0]
+at org.apache.camel.component.cxf.CxfConsumer$CxfConsumerInvoker.syncInvoke(CxfConsumer.java:235) ~[camel-cxf-3.17.0.jar:3.17.0]
+at org.apache.camel.component.cxf.CxfConsumer$CxfConsumerInvoker.invoke(CxfConsumer.java:162) ~[camel-cxf-3.17.0.jar:3.17.0]
+at org.apache.cxf.interceptor.ServiceInvokerInterceptor$1.run(ServiceInvokerInterceptor.java:59) ~[cxf-core-3.6.5.jar:3.6.5]
+at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+at org.apache.cxf.interceptor.ServiceInvokerInterceptor$2.run(ServiceInvokerInterceptor.java:126) ~[cxf-core-3.6.5.jar:3.6.5]
+at org.apache.cxf.workqueue.SynchronousExecutor.execute(SynchronousExecutor.java:37) ~[cxf-core-3.6.5.jar:3.6.5]
+at org.apache.cxf.interceptor.ServiceInvokerInterceptor.handleMessage(ServiceInvokerInterceptor.java:131) ~[cxf-core-3.6.5.jar:3.6.5]
+at org.apache.cxf.phase.PhaseInterceptorChain.doIntercept(PhaseInterceptorChain.java:307) ~[cxf-core-3.6.5.jar:3.6.5]
+at org.apache.cxf.phase.PhaseInterceptorChain.resume(PhaseInterceptorChain.java:277) ~[cxf-core-3.6.5.jar:3.6.5]
+at org.apache.cxf.interceptor.OneWayProcessorInterceptor$1.run(OneWayProcessorInterceptor.java:139) ~[cxf-core-3.6.5.jar:3.6.5]
+at org.apache.cxf.workqueue.AutomaticWorkQueueImpl$3.run(AutomaticWorkQueueImpl.java:413) ~[cxf-core-3.6.5.jar:3.6.5]
+at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+at org.apache.cxf.workqueue.AutomaticWorkQueueImpl$AWQThreadFactory$1.run(AutomaticWorkQueueImpl.java:346) ~[cxf-core-3.6.5.jar:3.6.5]
+at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
 
 
 
 Payload:
-<soap-env:Envelope xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/">
-<soap-env:Header>
-<wsa:To soap-env:mustUnderstand="1" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing">http://localhost/test</wsa:To>
-<wsa:From xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing">
-<wsa:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</wsa:Address>
-</wsa:From>
-<wsa:ReplyTo xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing">
-<wsa:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</wsa:Address>
-</wsa:ReplyTo>
-<wsa:FaultTo xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing">
-<wsa:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</wsa:Address>
-</wsa:FaultTo>
-<wsa:Action soap-env:mustUnderstand="1" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing"/>
-<wsa:MessageID xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing">uuid:123</wsa:MessageID>
-</soap-env:Header>
-<soap-env:Body>
-<data>
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-					
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et aaa
-        </data>
-    </soap-env:Body>
-</soap-env:Envelope>
+<soap:Envelope
+xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+<soap:Header/>
+<soap:Body>
+<ns2:invoke
+xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:ns1="http://test.de/4.0/billing/acc"
+xmlns:ns2="http://cxf.component.camel.apache.org/">
+<ns1:properties>
+<ns1:property name="test" value="123"/>
+</ns1:properties>
+</ns2:invoke>
+</soap:Body>
+</soap:Envelope>
