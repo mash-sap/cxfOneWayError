@@ -1,5 +1,5 @@
 Endpoint: localhost:9900/cxf/myendpoint
-Sending this payload gives following exception (its different based on the versions):
+Sending this payload gives following exception:
 
 ava.lang.IllegalStateException: The request object has been recycled and is no longer associated with this facade
 at org.apache.catalina.connector.RequestFacade.checkFacade(RequestFacade.java:856) ~[tomcat-embed-core-9.0.83.jar:9.0.83]
@@ -41,3 +41,6 @@ xmlns:ns2="http://cxf.component.camel.apache.org/">
 </ns2:invoke>
 </soap:Body>
 </soap:Envelope>
+
+
+This seems to be related to Tomcat. This problem can be fixed by changing tomcats
