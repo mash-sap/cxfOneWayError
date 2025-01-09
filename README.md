@@ -43,4 +43,8 @@ xmlns:ns2="http://cxf.component.camel.apache.org/">
 </soap:Envelope>
 
 
-This seems to be related to Tomcat. This problem can be fixed by changing tomcats
+This seems to be related to Tomcat. In tomcat 9 the default value of the following setting has changed from false to true
+org.apache.catalina.connector.RECYCLE_FACADES
+
+The problem can be fixed by reverting tomcat to the old bahvior via:
+-Dorg.apache.catalina.connector.RECYCLE_FACADES=false
