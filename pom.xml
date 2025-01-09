@@ -24,10 +24,10 @@
 <!--		<camel.version>3.11.7</camel.version>-->
 
 <!--		Latest-->
-		<camel.version>3.17.0</camel.version>
+		<camel.version>3.14.7</camel.version>
 
 
-		<camel.version>3.17.0</camel.version>
+<!--		<camel.version>3.17.0</camel.version>-->
 		<cxf.version>3.6.5</cxf.version>
 
 <!--		<camel.version>3.11.0</camel.version>-->

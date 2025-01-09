@@ -21,9 +21,9 @@
     </wsdl:portType>
     <wsdl:binding name="OneWayServiceSoap12Binding" type="tns:OneWay">
         <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-        <wsp:Policy xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
-            <wsp:PolicyReference URI="#BN__binding"/>
-        </wsp:Policy>
+<!--        <wsp:Policy xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">-->
+<!--            <wsp:PolicyReference URI="#BN__binding"/>-->
+<!--        </wsp:Policy>-->
         <wsdl:operation name="InvokeOneWay">
             <soap12:operation soapAction="" style="document"/>
             <wsdl:input name="InvokeOneWay">
@@ -36,7 +36,7 @@
             <soap:address location="https://host:port/path"/>
         </wsdl:port>
     </wsdl:service>
-    <wsp:UsingPolicy xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" required="true"/>
+    <wsp:UsingPolicy xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" required="false"/>
     <wsp:Policy xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" wsu:Id="BN__binding"
                 xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
         <wsp:ExactlyOne>

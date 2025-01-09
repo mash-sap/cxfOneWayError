@@ -34,7 +34,7 @@
 
 
     <cxf:cxfEndpoint id="reproduce"
-            address="/oneway"
+                     address="/myendpoint"
                      endpointName="sap-cxf-generic-request2:port12"
                      serviceClass="de.mash.demo.OneWay"
                      serviceName="sap-cxf-generic-request2:service"
