@@ -10,7 +10,7 @@ public class MyProcessor implements Processor {
     public void process(Exchange exchange) throws Exception {
         System.out.println("######################################## processor called ####################################");
         org.apache.camel.support.DefaultMessage msg = (DefaultMessage) exchange.getMessage();
-        System.out.println(msg.getBody());
+//        System.out.println(msg.getBody());
         System.out.println(msg.getBody(String.class));
         System.out.println(msg.getBody().getClass());
     }

@@ -26,8 +26,10 @@
 <!--		Latest-->
 		<camel.version>3.17.0</camel.version>
 
-
-		<camel.version>3.17.0</camel.version>
+<!--		<cxf.version>3.2.11</cxf.version>-->
+<!--		<cxf.version>3.3.13</cxf.version>-->
+<!--		<cxf.version>3.4.10</cxf.version>-->
+<!--		<cxf.version>3.5.10</cxf.version>-->
 		<cxf.version>3.6.5</cxf.version>
 
 <!--		<camel.version>3.11.0</camel.version>-->
@@ -36,6 +38,14 @@
 
 
 	<dependencies>
+		<!--		cxf-rt-ws-security helps to avoid the policy issues that still come-->
+		<!--		even with MyIgnoreInterceptor -->
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-ws-security</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-core</artifactId>

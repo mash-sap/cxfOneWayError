@@ -46,3 +46,9 @@ Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod 
         </data>
     </soap-env:Body>
 </soap-env:Envelope>
+
+
+If we remove the SoapOutEndingInterceptor and message is processed without problems:
+uncomment RemoveInterceptorPreStream line 21 to remove SoapOutEndingInterceptor from the interceptor chain
+
+Restart the app and send a message again. Now the message is processed OK and the full payload is printed into the logs.
