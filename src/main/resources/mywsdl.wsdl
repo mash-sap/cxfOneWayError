@@ -1,48 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-                  targetNamespace="http://camel.apache.org/cxf/jaxws/dispatch"
-                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+<wsdl:definitions targetNamespace="http://camel.apache.org/cxf/jaxws/provider"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+                  xmlns:tns="http://camel.apache.org/cxf/jaxws/provider" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
                   xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
-                  xmlns:tns="http://camel.apache.org/cxf/jaxws/dispatch" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+                  xmlns:ns1="http://cxf.component.camel.apache.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
     <wsdl:types>
         <xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
-                    targetNamespace="http://camel.apache.org/cxf/jaxws/dispatch"
-                    xmlns:tns="http://camel.apache.org/cxf/jaxws/dispatch" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-            <xsd:element name="InvokeOneWay" nillable="true" type="xsd:anyType"/>
+                    targetNamespace="http://cxf.component.camel.apache.org/"
+                    xmlns="http://cxf.component.camel.apache.org/"
+                    xmlns:tns="http://camel.apache.org/cxf/jaxws/provider" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:element name="invoke" nillable="true" type="xsd:anyType"/>
+            <xsd:element name="invokeResponse" nillable="true" type="xsd:anyType"/>
         </xsd:schema>
     </wsdl:types>
-    <wsdl:message name="InvokeOneWay">
-        <wsdl:part element="tns:InvokeOneWay" name="InvokeOneWayRequest"/>
+    <wsdl:message name="invokeResponse">
+        <wsdl:part name="invokeResponse" element="ns1:invokeResponse">
+        </wsdl:part>
     </wsdl:message>
-    <wsdl:portType name="OneWay">
-        <wsdl:operation name="InvokeOneWay">
-            <wsdl:input message="tns:InvokeOneWay" name="InvokeOneWay"/>
+    <wsdl:message name="invoke">
+        <wsdl:part name="invoke" element="ns1:invoke">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="DefaultPayloadProviderSEI">
+        <wsdl:operation name="invoke">
+            <wsdl:input name="invoke" message="tns:invoke">
+            </wsdl:input>
+            <wsdl:output name="invokeResponse" message="tns:invokeResponse">
+            </wsdl:output>
         </wsdl:operation>
     </wsdl:portType>
-    <wsdl:binding name="OneWayServiceSoap12Binding" type="tns:OneWay">
-        <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:binding name="DefaultPayloadProviderSEIServiceSoapBinding" type="tns:DefaultPayloadProviderSEI">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsp:Policy xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
             <wsp:PolicyReference URI="#BN__binding"/>
         </wsp:Policy>
-        <wsdl:operation name="InvokeOneWay">
+        <wsdl:operation name="invoke">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="invoke">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="invokeResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="DefaultPayloadProviderSEIServiceSoap12Binding" type="tns:DefaultPayloadProviderSEI">
+        <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+<!--        <wsp:Policy xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">-->
+<!--            <wsp:PolicyReference URI="#BN__binding"/>-->
+<!--        </wsp:Policy>-->
+        <wsdl:operation name="invoke">
             <soap12:operation soapAction="" style="document"/>
-            <wsdl:input name="InvokeOneWay">
+            <wsdl:input name="invoke">
                 <soap12:body use="literal"/>
             </wsdl:input>
+            <wsdl:output name="invokeResponse">
+                <soap12:body use="literal"/>
+            </wsdl:output>
         </wsdl:operation>
     </wsdl:binding>
     <wsdl:service name="service">
-        <wsdl:port binding="tns:OneWayServiceSoap12Binding" name="port12">
-            <soap:address location="https://host:port/path"/>
+        <wsdl:port name="port12" binding="tns:DefaultPayloadProviderSEIServiceSoap12Binding">
+            <soap:address location="https://m6960-iflmap.hcisb.int.sap.eu2.hana.ondemand.com:443/cxf/wqewqsdf"/>
+        </wsdl:port>
+        <wsdl:port name="port" binding="tns:DefaultPayloadProviderSEIServiceSoapBinding">
+            <soap:address location="https://m6960-iflmap.hcisb.int.sap.eu2.hana.ondemand.com:443/cxf/wqewqsdf"/>
         </wsdl:port>
     </wsdl:service>
-    <wsp:UsingPolicy xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" required="true"/>
-    <wsp:Policy xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" wsu:Id="BN__binding"
-                xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
-        <wsp:ExactlyOne>
-            <wsp:All>
-                <wsaw:UsingAddressing xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"/>
-
+    <wsp:UsingPolicy required="true" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"/>
+<!--    <wsp:Policy wsu:Id="BN__binding" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"-->
+<!--                xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">-->
+<!--        <wsp:ExactlyOne>-->
+<!--            <wsp:All>-->
 <!--                <sp:TransportBinding xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">-->
 <!--                    <wsp:Policy>-->
 <!--                        <sp:TransportToken>-->
@@ -86,8 +116,7 @@
 <!--                        </sp:Layout>-->
 <!--                    </wsp:Policy>-->
 <!--                </sp:TransportBinding>-->
-
-            </wsp:All>
-        </wsp:ExactlyOne>
-    </wsp:Policy>
+<!--            </wsp:All>-->
+<!--        </wsp:ExactlyOne>-->
+<!--    </wsp:Policy>-->
 </wsdl:definitions>
